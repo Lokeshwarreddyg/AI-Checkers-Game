@@ -161,15 +161,16 @@ class CheckersGame:
 
         moves = self.generate_possible_moves()
         if not moves:
-            print("No valid moves available for", self.current_player)
-            self.switch_player()  
-            if not self.generate_possible_moves():  
-                print("No valid moves available for", self.current_player, "either.")
+            print(f"No valid moves available for {self.current_player}.")
+            other_player = 'B' if self.current_player == 'W' else 'W'
+            self.current_player = other_player  # Switch to the other player to check moves
+            if not self.generate_possible_moves():  # Check if the other player also has no moves
+                print(f"No valid moves available for {self.current_player} either.")
                 print("Game ends in a draw.")
                 break
             else:
-                print("Switching to", self.current_player, "due to no valid moves for the opponent.")
-                continue
+                print(f"{other_player} wins! No valid moves left for {self.current_player}.")
+                break
 
         if self.current_player == 'W':
             valid_move_made = False
@@ -184,7 +185,7 @@ class CheckersGame:
                         print("Invalid move. Try again.")
                 except ValueError:
                     print("Please enter valid integer coordinates.")
-        else: 
+        else:  # AI player
             print("AI is making a move...")
             self.ai_move()
 
@@ -194,6 +195,7 @@ class CheckersGame:
             break
 
         self.switch_player()
+
 
 
     def ai_move(self):
