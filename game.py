@@ -204,7 +204,7 @@ class CheckersGame:
         print("No valid moves available for AI.")
         return
     
-      if len(moves) > 7:
+      if len(moves) > 8:
         print("Using MCTS due to a large number of possible moves.")
         root_node = Node(self, None, None)
         best_move = root_node.mcts(1000)
